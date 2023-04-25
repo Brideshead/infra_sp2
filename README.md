@@ -13,35 +13,6 @@ cd infra_sp2
 cd api_yamdb
 ```
 
-```
-Cоздать и активировать виртуальное окружение:
-
-```
-python3 -m venv env
-```
-
-* Если у вас Linux/macOS
-
-    ```
-    source env/bin/activate
-    ```
-
-* Если у вас windows
-
-    ```
-    source env/scripts/activate
-    ```
-
-```
-python3 -m pip install --upgrade pip
-```
-
-Установить зависимости из файла requirements.txt:
-
-```
-pip install -r requirements.txt
-```
-
 Переходим в папку с файлом docker-comppse.yaml:
 
 ```
@@ -60,6 +31,7 @@ docker-compose up -d --build
 docker-compose exec web python manage.py makemigrations reviews
 docker-compose exec web python manage.py makemigrations users
 docker-compose exec web python manage.py migrate
+docker-compose exec web python manage.py loaddata infra/fixtures.json
 ```
 
 Создать суперпользователя:
@@ -92,8 +64,25 @@ docker-compose down -v
 python3 manage.py runserver
 ```
 
-### Документация к API расположена по адресуЖ
+### Шаблон наполнения .env (не включен в текущий репозиторий) расположенный по пути infra/.env
+
+```
+DB_ENGINE=django.db.backends.postgresql
+DB_NAME=postgres
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+DB_HOST=db
+DB_PORT=5432
+```
+
+### Документация к API расположена по адресу:
 
 ```
 http://localhost/redoc/
+```
+
+### Команда, ответственная за проект:
+```
+Богоевич Александр - архитектура проекта, API регистрации и авторизации пользователей, контейнеризация
+Евгений Кудрявцев - API отзывов и комментариев к произведениям
 ```
